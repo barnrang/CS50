@@ -1,0 +1,22 @@
+#!/usr/bin/env python3
+import cs50
+import sys
+import os
+import helpers as helper
+from analyzer import Analyzer 
+
+def main():
+    if len(sys.argv) != 2:
+        sys.exit("Usage ./tweet arg")
+    posts = helper.get_user_timeline(sys.argv[1].lstrip('@'), 50)
+    if posts == None:
+        sys.exit('Cannot retrieved')
+    positives = os.path.join(sys.path[0], "positive-words.txt")
+    negatives = os.path.join(sys.path[0], "negative-words.txt")
+    analyzer = Analyzer(positives, negatives)
+    for tweet in posts:
+        score = analyzer.analyze(tweet)
+        print(score, tweet)
+if __name__ == "__main__":
+    main()
+# TODO

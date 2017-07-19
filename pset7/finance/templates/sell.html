@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Index
+{% endblock %}
+
+{% block main %}
+<form action="{{ url_for('sell') }}" method="post">
+            <div class="form-group">
+                <input autocomplete="off" autofocus class="form-control" name="symbol" placeholder="Symbol" type="text"/><font color="red">{{error1}}</font>
+            </div>
+            <div class="form-group">
+                <input autocomplete="off" autofocus class="form-control" name="share" placeholder="Share" type="text"/><font color="red">{{error2}}</font>
+                <button class="btn btn-default" type="submit">sell</button>
+            </div>
+        <table class="table table-striped">
+            <tr>
+                <th>
+                    Symbol
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Share
+                </th>
+                <th>
+                    Price
+                </th>
+                <th>
+                    Total
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    CASH
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                    {{cash}}
+                </td>
+            </tr>
+            {% for row in rows %}
+                <tr>
+                    <td>
+                        {{row["symbol"]}}
+                    </td>
+                    <td>
+                        {{row["name"]}}
+                    </td>
+                    <td>
+                        {{row["share"]}}
+                    </td>
+                    <td>
+                        {{row["price"]}}
+                    </td>
+                    <td>
+                        {{row["price"] * row["share"]}}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+{% endblock %}
